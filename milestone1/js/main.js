@@ -169,14 +169,17 @@ const { createApp } = Vue
                 status: 'received'
             }
         ],
+        
     }
-]
+],
+        
   }
+  
 },
 
     // Application methods
-    methods: {
+     methods: {
+    }, 
+   
 
-    },
-
-  }).mount('#app')
+}).mount('#app');
