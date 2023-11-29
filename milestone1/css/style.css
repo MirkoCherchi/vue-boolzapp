@@ -190,6 +190,9 @@ body{
     flex-grow: 1;
     background-image: url(../img/mine.jpg) ;
     overflow-y: scroll;
+    display: flex;
+    width: 100%;
+    padding: 55px 100px;
 }
 
 .chat-text{
@@ -218,4 +221,41 @@ body{
     color: #6b7376;
     font-size: 1.375rem;
 }
+
+.message-width{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+li{
+    list-style: none;
+}
+
+.my-message{
+    background-color: #d5f9ba;
+    width: 35%;
+    align-self: flex-end;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.message-user{
+    background-color: #fff;
+    width: 35%;
+    align-self: flex-start;
+    margin: 5px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
 
