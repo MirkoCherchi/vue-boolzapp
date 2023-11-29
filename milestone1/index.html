@@ -37,12 +37,12 @@
         <div class="container">
             <div class="contleft">
 
-                <!-- My user -->
-                <div class="my-user">
-                    <div class="l-user"><img class="img-user" src="img/avatar_io.jpg" alt="">
+                <!-- My profile -->
+                <div class="my-profile">
+                    <div class="l-profile"><img class="img-profile" src="img/avatar_io.jpg" alt="my profile">
                         <h4>Sofia</h4>
                     </div>
-                    <div class="r-user">
+                    <div class="r-profile">
                         <ul class="list-icon">
                             <li><a href="#"><i class="fa-solid fa-circle-notch"></i></a></li>
                             <li><a href="#"><i class="fa-solid fa-message"></i></a></li>
@@ -50,7 +50,7 @@
                         </ul>
                     </div>
                 </div>
-                <!-- /My user -->
+                <!-- /My profile -->
 
                 <!-- notifications -->
                 <div class="notifications">
@@ -68,6 +68,17 @@
                     <input class="input-search" type="text" placeholder="Cerca o inizia una nuova chat">
                 </div>
                 <!-- /Search -->
+
+                <!-- List chat -->
+                <div class="chat-list">
+                    <ul>
+                        <li v-for="( user,index ) in contacts"><img :src="user.avatar" :alt="user.name" />
+                            <h4>{{ user.name }}</h4>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- /List chat -->
             </div>
             <div class="contright">right</div>
 
