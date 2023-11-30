@@ -191,21 +191,26 @@ newMessage: '',
 
         insertNewMessage() {
             if (this.newMessage.trim() !== '') {
-                // Aggiunge il messaggio inviato
                 this.contactActive.messages.push({
                     message: this.newMessage,
                     status: 'received',
                 });
+                const setValue = this.newMessage
 
             this.newMessage = '';
 
             setTimeout(() => {
-                    if (this.newMessage.trim().toLowerCase() === 'ciao'){
+                    if (setValue.trim().toLowerCase() === 'ciao'){
                     this.contactActive.messages.push({
                         message: 'Ciao Mirko',
                         status: 'sent',
                     });
-                } 
+                } else {
+                    this.contactActive.messages.push({
+                        message: 'Non capisco',
+                        status: 'sent',
+                    });
+                }
                 
                 }, 1000);
                 
