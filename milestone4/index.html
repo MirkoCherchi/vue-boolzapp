@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- Font Lato -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <!-- /Font Lato -->
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+        integrity="sha512-Avb2QiuDEEvB4bZJYdft2mNjVShBftLdPG8FJ0V7irTLQ8Uo0qcPxh4Plq7G5tGm0rU+1SPhVotteLpBERwTkw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- /Font Awesome -->
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="img/whatsapp.png" type="image/x-icon">
+    <!-- /Favicon -->
+
+    <!-- My Css -->
+    <link rel="stylesheet" href="css/style.css">
+    <!-- /My Css -->
+
+</head>
+
+<body>
+
+    <!-- Vue assembly -->
+    <div id="app" v-cloak>
+
+        <!-- Container App -->
+        <div class="container">
+
+            <!-- Container left -->
+            <div class="contleft">
+
+                <!-- My profile -->
+                <div class="my-profile">
+                    <div class="l-profile"><img class="img-profile" src="img/avatar_io.jpg" alt="my profile">
+                        <h4>Sofia</h4>
+                    </div>
+                    <div class="r-profile">
+                        <ul class="list-icon">
+                            <li><a href="#"><i class="fa-solid fa-circle-notch"></i></a></li>
+                            <li><a href="#"><i class="fa-solid fa-message"></i></a></li>
+                            <li><a href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /My profile -->
+
+                <!-- notifications -->
+                <div class="notifications">
+                    <div class="l-notifications"><i class="fa-solid fa-bell-slash"></i></div>
+                    <div class="r-notifications">
+                        <h4>Ricevi notifiche di nuovi messaggi</h4>
+                        <a class="active-not" href="#">Attiva notifiche desktop</a>
+                    </div>
+                </div>
+                <!-- /notifications -->
+
+                <!-- Search -->
+                <div class="search">
+                    <a href="#"><i class="fa-solid fa-magnifying-glass search-i"></i></a>
+                    <input v-model="listContact" class="input-search" type="text"
+                        placeholder="Cerca o inizia una nuova chat">
+                </div>
+                <!-- /Search -->
+
+                <!-- List chat -->
+                <div class="chat-list">
+                    <ul>
+                        <li class="li-relative" v-for="(user, index) in filteredContacts"
+                            @click="contactActivated(user)">
+                            <img :src="user.avatar" :alt="user.name" />
+                            <div>
+                                <h4>{{ user.name }}</h4>
+                                <p class="ultimate-message">Ultimo messaggio inviato</p>
+                            </div>
+                            <span class="clock-ultimate">12:00</span>
+
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /List chat -->
+
+
+            </div>
+            <!-- /Container left -->
+
+            <!-- Container right -->
+            <div class="contright">
+
+                <!-- User Chat -->
+                <div class="user-chat">
+                    <div class="l-user-chat" v-if="contactActive">
+                        <div><img class="img-user-chat" :src="contactActive.avatar" :alt="contactActive.name"></div>
+                        <div>
+                            <h4>{{ contactActive.name }}</h4>
+                            <p class="ultimate-access">Ultimo accesso oggi alle 12:00</p>
+                        </div>
+                    </div>
+                    <div class="r-user-chat">
+                        <ul class="list-icon">
+                            <li><a href="#"><i class="fa-solid fa-magnifying-glass"></i></a></li>
+                            <li><a href="#"><i class="fa-solid fa-paperclip"></i></a></li>
+                            <li><a href="#"><i class="fa-solid fa-ellipsis-vertical"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /User Chat -->
+
+
+                <!-- Chat -->
+                <div class="general-chat">
+                    <div class="message-width">
+                        <ul class="chat-organization">
+                            <li class="text-message" v-for="message in contactMessages()"
+                                :class="{ 'message-user': message.status === 'sent', 'my-message': message.status === 'received' }">
+                                {{ message.message }}
+                                <span class="message-date">15:00</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Chat -->
+
+
+
+                <!-- Write text -->
+                <div class="chat-text">
+                    <a href="#"><i class="fa-regular fa-face-smile"></i></a>
+                    <input v-model="newMessage" @keyup.enter="insertNewMessage" class="input-write" type="text"
+                        placeholder="Scrivi un messaggio">
+                    <a href="#"><i class="fa-solid fa-microphone"></i></a>
+                </div>
+                <!-- /Write text -->
+
+            </div>
+            <!-- /Container right -->
+
+        </div>
+
+        <!-- /Container App -->
+
+    </div>
+    <!-- /Vue assembly -->
+
+
+    <!-- Vue Js -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <!-- /Vue Js -->
+
+    <!-- My Js -->
+    <script src="js/main.js"></script>
+    <!-- /My Js -->
+</body>
+
+</html>
