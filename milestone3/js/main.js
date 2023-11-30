@@ -197,7 +197,7 @@ newMessage: '',
                 });
                 const setValue = this.newMessage
 
-            this.newMessage = '';
+                this.newMessage = '';
 
             setTimeout(() => {
                     if (setValue.trim().toLowerCase() === 'ciao'){
