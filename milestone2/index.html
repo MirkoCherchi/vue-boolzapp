@@ -74,10 +74,16 @@
                 <!-- List chat -->
                 <div class="chat-list">
                     <ul>
-                        <li v-for="(user, index) in contacts" @click="contactActivated(user)">
+                        <li class="li-relative" v-for="(user, index) in contacts" @click="contactActivated(user)">
                             <img :src="user.avatar" :alt="user.name" />
-                            <h4>{{ user.name }}</h4>
+                            <div>
+                                <h4>{{ user.name }}</h4>
+                                <p class="ultimate-message">Ultimo messaggio inviato</p>
+                            </div>
+                            <span class="clock-ultimate">12:00</span>
+
                         </li>
+
                     </ul>
                 </div>
                 <!-- /List chat -->
@@ -113,9 +119,10 @@
                 <div class="general-chat">
                     <div class="message-width">
                         <ul class="chat-organization">
-                            <li v-for="message in contactMessages()"
+                            <li class="text-message" v-for="message in contactMessages()"
                                 :class="{ 'message-user': message.status === 'sent', 'my-message': message.status === 'received' }">
                                 {{ message.message }}
+                                <span class="message-date">15:00</span>
                             </li>
                         </ul>
                     </div>
