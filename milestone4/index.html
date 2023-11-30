@@ -67,7 +67,7 @@
                 <!-- Search -->
                 <div class="search">
                     <a href="#"><i class="fa-solid fa-magnifying-glass search-i"></i></a>
-                    <input v-model="listContact" class="input-search" type="text"
+                    <input v-model="listContact" @input="filteredContacts" class="input-search" type="text"
                         placeholder="Cerca o inizia una nuova chat">
                 </div>
                 <!-- /Search -->
@@ -75,8 +75,8 @@
                 <!-- List chat -->
                 <div class="chat-list">
                     <ul>
-                        <li class="li-relative" v-for="(user, index) in filteredContacts"
-                            @click="contactActivated(user)">
+                        <li class="li-relative" v-for="(user, index) in contacts" @click="contactActivated(user)"
+                            v-show="user.visible">
                             <img :src="user.avatar" :alt="user.name" />
                             <div>
                                 <h4>{{ user.name }}</h4>

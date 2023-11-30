@@ -219,13 +219,16 @@ listContact: '',
         },
 
         filteredContacts() {
-    if (this.listContact.trim() !== '') {
-        return this.contacts.filter((contacts) => 
-        contacts.name.toLowerCase().includes(this.listContact.toLowerCase()))
-    } else {
-        return this.contacts;
-    }
+            this.contacts.forEach((user) => {
+                if (user.name.toLowerCase().includes(this.listContact)) {
+                    user.visible = true;
+                } else {
+                    user.visible = false;
+                }
+            })
+    
 },
+
 
 
 
