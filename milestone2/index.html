@@ -74,12 +74,14 @@
                 <!-- List chat -->
                 <div class="chat-list">
                     <ul>
-                        <li v-for="( user,index ) in contacts"><img :src="user.avatar" :alt="user.name" />
+                        <li v-for="(user, index) in contacts" @click="contactActivated(user)">
+                            <img :src="user.avatar" :alt="user.name" />
                             <h4>{{ user.name }}</h4>
                         </li>
                     </ul>
                 </div>
                 <!-- /List chat -->
+
 
             </div>
             <!-- /Container left -->
@@ -89,10 +91,10 @@
 
                 <!-- User Chat -->
                 <div class="user-chat">
-                    <div class="l-user-chat">
-                        <div><img class="img-user-chat" src="img/avatar_1.jpg" alt="avatar1"></div>
+                    <div class="l-user-chat" v-if="contactActive">
+                        <div><img class="img-user-chat" :src="contactActive.avatar" :alt="contactActive.name"></div>
                         <div>
-                            <h4>Michele</h4>
+                            <h4>{{ contactActive.name }}</h4>
                             <p class="ultimate-access">Ultimo accesso oggi alle 12:00</p>
                         </div>
                     </div>
@@ -106,22 +108,20 @@
                 </div>
                 <!-- /User Chat -->
 
+
                 <!-- Chat -->
                 <div class="general-chat">
                     <div class="message-width">
                         <ul class="chat-organization">
-                            <li class="message-user">Tutto fatto</li>
-                            <li class="my-message">Hai portato a spasso il cane?</li>
-                            <li class="my-message">Hai portato a spasso il cane?</li>
-                            <li class="message-user">Tutto fatto</li>
-                            <li class="message-user">Tutto fatto</li>
-                            <li class="my-message">Hai portato a spassooooooooo il cane?</li>
-                            <li class="my-message">Hai portato a spasso il cane?</li>
-                            <li class="message-user">Tutto fatto</li>
+                            <li v-for="message in contactMessages()"
+                                :class="{ 'message-user': message.status === 'sent', 'my-message': message.status === 'received' }">
+                                {{ message.message }}
+                            </li>
                         </ul>
                     </div>
                 </div>
                 <!-- /Chat -->
+
 
 
                 <!-- Write text -->
