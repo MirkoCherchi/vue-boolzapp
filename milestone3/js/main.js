@@ -200,7 +200,7 @@ newMessage: '',
             this.newMessage = '';
 
             setTimeout(() => {
-                    if (this.newMessage.trim().toLowerCase() === ''){
+                    if (this.newMessage.trim().toLowerCase() === 'ciao'){
                     this.contactActive.messages.push({
                         message: 'Ciao Mirko',
                         status: 'sent',
