@@ -77,7 +77,7 @@
                 <div class="chat-list">
                     <ul>
                         <li class="li-relative" v-for="(user, index) in contacts" @click="contactActivated(user)"
-                            v-show="user.visible">
+                            v-show="user.visible" :class="{ 'contactActive': user === contactActive }">
                             <img :src="user.avatar" :alt="user.name" />
                             <div>
                                 <h4>{{ user.name }}</h4>

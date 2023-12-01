@@ -315,22 +315,27 @@ li{
     top: 5px;
     font-size: 12px;
     cursor: pointer;
+    color: #90a281;
 }
 
 .list-drop{
     position: absolute;
     right: 0;
     z-index: 5;
-    background-color: red;
+    background-color: #fff;
 }
 
 .list-drop li{
-    padding: 5px 10px;
+    padding: 10px;
     cursor: pointer;
 }
 
 .list-drop li:hover{
-    background-color: green;
+    background-color: #e9ebeb;
+}
+
+.contactActive{
+    background-color: #e9ebeb;
 }
 
 
