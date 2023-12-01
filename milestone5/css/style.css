@@ -37,6 +37,8 @@ body{
     width: 35%;
     border-right: 1px solid #d6d6d6;
     height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .contright{
@@ -50,6 +52,7 @@ body{
     display: flex;
     background-color: #eaeaea;
     justify-content: space-between;
+    height: 70px;
 }
 
 .l-profile, .r-profile{
@@ -59,9 +62,11 @@ body{
 
 
 .img-profile{
-    border-radius: 100%;
+    border-radius: 50%;
     width: 50px;
+    height: 50px;
     margin: 10px;
+    object-fit: cover;
 }
 
 .list-icon{
@@ -112,7 +117,9 @@ body{
     display: flex;
     justify-content: center;
     padding: 7px;
+    background-color: #fafafa;
 }
+
 
 .input-search{
     width: 100%;
@@ -142,13 +149,15 @@ body{
 .chat-list{
     width: 100%;
     overflow-y: scroll;
-    height: calc(100% - 203px);
+    height: 100%;
 }
 
 .chat-list ul li img{
     border-radius: 100%;
         width: 55px;
+        height: 55px;
         margin: 10px 20px;
+
 }
 
 
@@ -163,6 +172,7 @@ body{
     display: flex;
     background-color: #eaeaea;
     justify-content: space-between;
+    height: 70px;
 }
 
 .l-user-chat,
@@ -271,7 +281,7 @@ li{
     background-color: #d5f9ba;
     align-self: flex-end;
     margin: 5px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     width: 40%;
 
@@ -281,7 +291,7 @@ li{
     background-color: #fff;
     align-self: flex-start;
     margin: 5px;
-    padding: 20px;
+    padding: 10px;
     border-radius: 10px;
     width: 40%;
 }
@@ -299,12 +309,28 @@ li{
     position: relative;
 }
 
+.fa-chevron-down{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    font-size: 12px;
+    cursor: pointer;
+}
 
+.list-drop{
+    position: absolute;
+    right: 0;
+    z-index: 5;
+    background-color: red;
+}
 
+.list-drop li{
+    padding: 5px 10px;
+    cursor: pointer;
+}
 
-
-
-
-
+.list-drop li:hover{
+    background-color: green;
+}
 
 

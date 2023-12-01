@@ -41,8 +41,9 @@
 
                 <!-- My profile -->
                 <div class="my-profile">
-                    <div class="l-profile"><img class="img-profile" src="img/avatar_io.jpg" alt="my profile">
-                        <h4>Sofia</h4>
+                    <div class="l-profile"><img class="img-profile"
+                            src="img/277456595_718542332838572_6759751967365622662_n (1).jpg" alt="my profile">
+                        <h4>Mirko</h4>
                     </div>
                     <div class="r-profile">
                         <ul class="list-icon">
@@ -80,9 +81,13 @@
                             <img :src="user.avatar" :alt="user.name" />
                             <div>
                                 <h4>{{ user.name }}</h4>
-                                <p class="ultimate-message">Ultimo messaggio inviato</p>
+                                <p class="ultimate-message" v-if="user.messages.length > 0">
+                                    {{ user.messages[user.messages.length - 1].message }}
+                                </p>
                             </div>
-                            <span class="clock-ultimate">12:00</span>
+                            <span class="clock-ultimate" v-if="user.messages.length > 0">
+                                {{ user.messages[user.messages.length - 1].date }}
+                            </span>
 
                         </li>
 
@@ -125,11 +130,21 @@
                                 :class="{ 'message-user': message.status === 'sent', 'my-message': message.status === 'received' }">
                                 {{ message.message }}
                                 <span class="message-date">{{ message.date }}</span>
+
+                                <div class="dropdown" @click.stop="dropDown(message)">
+                                    <i class="fa-solid fa-chevron-down"></i>
+                                    <ul class="list-drop" v-if="isDropdownOpen(message)">
+                                        <li @click.stop="deleteMessage(message)">Cancella messaggio</li>
+                                        <li>Info</li>
+                                    </ul>
+                                </div>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <!-- /Chat -->
+
+
 
 
 

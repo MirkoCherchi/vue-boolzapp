@@ -176,6 +176,8 @@ const { createApp } = Vue
 contactActive: null,
 newMessage: '',
 listContact: '',
+dropDownMessage: null,
+
         
   }
   
@@ -212,10 +214,18 @@ listContact: '',
                         message: 'Ciao Mirko',
                         status: 'sent',
                     });
-                } else {
+                } else if (setValue.trim().toLowerCase() === 'come va?') {
+            this.contactActive.messages.push({
+              date: timeFormatted,
+              message: 'Bene Mirko! e tu?',
+              status: 'sent',
+              });
+            }
+                
+                 else {
                     this.contactActive.messages.push({
                         date: timeFormatted,
-                        message: 'Non capisco',
+                        message: 'Non sono così intelligente da capire tutto',
                         status: 'sent',
                     });
                 }
@@ -224,6 +234,28 @@ listContact: '',
                 
             }
         },
+
+        dropDown(message) {
+        if (this.dropDownMessage === message) {
+            this.dropDownMessage = null;
+        } else {
+            this.dropDownMessage = message;
+        }
+    },
+
+    isDropdownOpen(message) {
+        return this.dropDownMessage === message;
+    },
+
+    deleteMessage(message) {
+        
+        const index = this.contactActive.messages.indexOf(message);
+        if (index !== -1) {
+            this.contactActive.messages.splice(index, 1);
+        }
+    },
+
+        
 
         filteredContacts() {
             this.contacts.forEach((user) => {
@@ -236,6 +268,7 @@ listContact: '',
     
         },
     }, 
+
 
      mounted() {
         this.contactActivated(this.contacts[0]);
