@@ -185,6 +185,22 @@ dropDownMessage: null,
 
     // Application methods
      methods: {
+
+        formatData(date) {
+    return DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss').toFormat('dd/MM/yyyy HH:mm:ss');
+  },
+
+        orderChat() {
+      this.contacts.sort((a, b) => {
+        const lastMessageA = a.messages[a.messages.length - 1];
+        const lastMessageB = b.messages[b.messages.length - 1];
+
+        const dateA = DateTime.fromFormat(lastMessageA.date, 'dd/MM/yyyy HH:mm:ss');
+        const dateB = DateTime.fromFormat(lastMessageB.date, 'dd/MM/yyyy HH:mm:ss');
+
+        return dateB - dateA;
+      });
+    },
         
         contactActivated(contact) {
             this.contactActive = contact;
@@ -198,7 +214,7 @@ dropDownMessage: null,
         insertNewMessage() {
             if (this.newMessage.trim() !== '') {
                 const time = DateTime.now();
-                const timeFormatted = time.toFormat('HH:mm');
+                const timeFormatted = time.toFormat('dd/MM/yyyy HH:mm:ss');
                 this.contactActive.messages.push({
                     date: timeFormatted,
                     message: this.newMessage,
@@ -207,6 +223,7 @@ dropDownMessage: null,
                 const setValue = this.newMessage
 
                 this.newMessage = '';
+                this.orderChat();
                
 
             setTimeout(() => {
@@ -231,6 +248,7 @@ dropDownMessage: null,
                         status: 'sent',
                     });
                 }
+                
                 
                 }, 1000);
                 
