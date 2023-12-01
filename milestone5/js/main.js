@@ -185,9 +185,11 @@ dropDownMessage: null,
 
     // Application methods
      methods: {
+        
         contactActivated(contact) {
             this.contactActive = contact;
         },
+
 
          contactMessages() {
             return this.contactActive ? this.contactActive.messages : [];
@@ -196,7 +198,7 @@ dropDownMessage: null,
         insertNewMessage() {
             if (this.newMessage.trim() !== '') {
                 const time = DateTime.now();
-                const timeFormatted = time.toFormat('dd/MM/yyyy HH:mm');
+                const timeFormatted = time.toFormat('HH:mm');
                 this.contactActive.messages.push({
                     date: timeFormatted,
                     message: this.newMessage,
@@ -234,6 +236,7 @@ dropDownMessage: null,
                 
             }
         },
+        
 
         dropDown(message) {
         if (this.dropDownMessage === message) {
@@ -255,14 +258,14 @@ dropDownMessage: null,
         }
     },
 
-        
-
+    
         filteredContacts() {
             this.contacts.forEach((user) => {
                 if (user.name.toLowerCase().includes(this.listContact)) {
                     user.visible = true;
                 } else {
                     user.visible = false;
+                      
                 }
             })
     
