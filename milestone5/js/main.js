@@ -177,6 +177,22 @@ contactActive: null,
 newMessage: '',
 listContact: '',
 dropDownMessage: null,
+randomResponse: [
+    'A volte sono le persone che nessuno immagina che possano fare certe cose quelle che fanno cose che nessuno può immaginare.',
+    'La fantasia è più importante del sapere, perché il sapere è limitato.',
+    'Chi dice che è impossibile non dovrebbe disturbare chi ce la sta facendo.',
+    'C\'è una forza motrice più forte del vapore, dell’elettricità e dell’energia atomica: la volontà.',
+    'La misura dell\'intelligenza è data dalla capacità di cambiare quando è necessario.',
+    'La logica ti porta da A a B, l’immaginazione ti porta ovunque.',
+    'Gli occhi sono lo specchio dell’anima… cela i tuoi se non vuoi che ne scopra i segreti.',
+    'Imparerai a tue spese che nel lungo tragitto della vita incontrerai tante maschere e pochi volti.',
+    'Ma guardi signore è facilissimo, le insegno io ad esser pazza. Basta gridare la verità in faccia a tutti, loro non ci crederanno e ti prenderanno per pazza.',
+    'Non credo di aver capito bene',
+    'Questa app è favolosa',
+],
+ultimateAcces: 'Ultimo accesso oggi alle 12:00',
+showDropdown: false,
+fontZoomed: false,
 
         
   }
@@ -185,18 +201,17 @@ dropDownMessage: null,
 
     // Application methods
      methods: {
-
-        formatData(date) {
-    return DateTime.fromFormat(date, 'dd/MM/yyyy HH:mm:ss').toFormat('dd/MM/yyyy HH:mm:ss');
-  },
+        fontZoomIn() {
+        this.fontZoomed = !this.fontZoomed;
+    },
 
         orderChat() {
       this.contacts.sort((a, b) => {
         const lastMessageA = a.messages[a.messages.length - 1];
         const lastMessageB = b.messages[b.messages.length - 1];
 
-        const dateA = DateTime.fromFormat(lastMessageA.date, 'dd/MM/yyyy HH:mm:ss');
-        const dateB = DateTime.fromFormat(lastMessageB.date, 'dd/MM/yyyy HH:mm:ss');
+        const dateA = DateTime.fromFormat(lastMessageA.date, 'HH:mm');
+        const dateB = DateTime.fromFormat(lastMessageB.date, 'HH:mm');
 
         return dateB - dateA;
       });
@@ -214,46 +229,61 @@ dropDownMessage: null,
         insertNewMessage() {
             if (this.newMessage.trim() !== '') {
                 const time = DateTime.now();
-                const timeFormatted = time.toFormat('dd/MM/yyyy HH:mm:ss');
+                const timeFormatted = time.toFormat('HH:mm');
                 this.contactActive.messages.push({
                     date: timeFormatted,
                     message: this.newMessage,
                     status: 'received',
                 });
+                this.$nextTick(() => {
+                this.scrollChatToBottom();
+                });
+                
                 const setValue = this.newMessage
 
                 this.newMessage = '';
                 this.orderChat();
+                this.ultimateAcces = 'Sta scrivendo...';
                
 
-            setTimeout(() => {
-                    if (setValue.trim().toLowerCase() === 'ciao'){
-                    this.contactActive.messages.push({
-                        date: timeFormatted,
-                        message: 'Ciao Mirko',
-                        status: 'sent',
-                    });
+             setTimeout(() => {
+                let responseMessage = '';
+
+                if (setValue.trim().toLowerCase() === 'ciao') {
+                    responseMessage = 'Ciao Mirko';
                 } else if (setValue.trim().toLowerCase() === 'come va?') {
-            this.contactActive.messages.push({
-              date: timeFormatted,
-              message: 'Bene Mirko! e tu?',
-              status: 'sent',
-              });
-            }
-                
-                 else {
-                    this.contactActive.messages.push({
-                        date: timeFormatted,
-                        message: 'Non sono così intelligente da capire tutto',
-                        status: 'sent',
-                    });
+                    responseMessage = 'Bene Mirko! e tu?';
+                } else {
+                    
+                    const randomIndex = Math.floor(Math.random() * this.randomResponse.length);
+                    responseMessage = this.randomResponse[randomIndex];
                 }
-                
-                
-                }, 1000);
-                
-            }
+
+                this.contactActive.messages.push({
+                    date: timeFormatted,
+                    message: responseMessage,
+                    status: 'sent',
+                });
+                this.$nextTick(() => {
+                this.scrollChatToBottom();
+                });
+
+                this.ultimateAcces = 'Online';
+                setTimeout(() => {
+                    this.ultimateAcces = `Ultimo accesso oggi alle ${time.toFormat('HH:mm')}`;
+                }, 2000);
+            }, 1000);
+            
+        }
+
         },
+
+        scrollChatToBottom() {
+    const chatContainer = this.$refs.chatContainer;
+    if (chatContainer) {
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+},
         
 
         dropDown(message) {
@@ -288,12 +318,48 @@ dropDownMessage: null,
             })
     
         },
+
+        deleteMessages() {
+        if (this.contactActive) {
+            this.contactActive.messages = [];
+            this.showDropdownMenu = false;
+        }
+    },
+
+        deleteChat() {
+    if (this.contactActive) {
+        
+        const index = this.contacts.indexOf(this.contactActive);
+
+        if (index !== -1) {
+            this.contacts.splice(index, 1);
+
+            if (this.contacts.length > 0) {
+                this.contactActive = this.contacts[0];
+           
+            } else {
+                this.contactActive = null;
+            }
+
+            this.showDropdownMenu = false;
+        }
+    }
+},
+
     }, 
 
 
      mounted() {
-        this.contactActivated(this.contacts[0]);
+        
     },
+    watch: {
+    contactActive() {
+        this.$nextTick(() => {
+            this.scrollChatToBottom();
+        });
+    },
+},
+
    
 
 }).mount('#app');
